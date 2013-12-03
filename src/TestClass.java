@@ -9,6 +9,5 @@ public class TestClass {
 	public void generateCodeModel() {
 		CodeModel code = CodeModelGenerator.getCodeModelFromFile("triangle3_2.c");
 		code.print(System.out);
-		
 	}
 }
