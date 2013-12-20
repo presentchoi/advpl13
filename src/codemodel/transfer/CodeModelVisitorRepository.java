@@ -11,6 +11,7 @@ import codemodel.transfer.oneparam.CodeModelOneParamVisitor;
 public class CodeModelVisitorRepository {
 	private static final CodeModelNoParamVisitor conditionStatementTransferVisitor = new ConditionStatementTransferVisitor();
 	private static final CodeModelOneParamVisitor<Stack<List<Declaration>>> secondPathSymbolicAnalysisVisitor = new SecondPathAnalysisVisitor();
+    private static final CodeModelNoParamVisitor lineNumberAnalysisVisitor = new LineNumberAnalysisVisitor();
 
 	public static CodeModelNoParamVisitor getConditionStatementTransferVisitor() {
 		return conditionStatementTransferVisitor;
@@ -20,4 +21,7 @@ public class CodeModelVisitorRepository {
 		return secondPathSymbolicAnalysisVisitor;
 	}
 
+	public static CodeModelNoParamVisitor getLineNumberAnalysisVisitor() {
+	    return lineNumberAnalysisVisitor;	    
+	}
 }

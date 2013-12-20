@@ -35,8 +35,8 @@ import codemodel.structure.stat.LabeledStatement;
 import codemodel.structure.stat.WhileStatement;
 import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 
-
-public class ToTOneParamVisitorExample implements CodeModelToTOneParamVisitor<String, List<String>>{
+public class ToTOneParamVisitorExample implements
+		CodeModelToTOneParamVisitor<String, List<String>> {
 
 	@Override
 	public String visit(FunctionDeclaration functionDeclaration,

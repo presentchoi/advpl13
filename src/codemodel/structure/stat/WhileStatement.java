@@ -100,4 +100,16 @@ public class WhileStatement extends ConditionStatement {
 		return newInstance;
 	}
 
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        StringBuffer form = new StringBuffer();
+        form.append(getLineNum());
+        form.append("while (");
+        form.append(getConditionExpression().toString());
+        form.append(")");
+        out.println(prefix + form.toString());
+        getConditionBlock().printWithLineNum(out, prefix);
+    }
+
 }

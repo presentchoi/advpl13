@@ -2,6 +2,6 @@ package codemodel.structure.stat;
 
 
 
-public interface NonconditionStatement extends Statement {
-
+public abstract class NonconditionStatement extends Statement {
+        
 }

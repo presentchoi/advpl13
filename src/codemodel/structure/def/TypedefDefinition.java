@@ -14,7 +14,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
 
-public class TypedefDefinition implements Definition {
+public class TypedefDefinition extends Definition {
 	private Type postType;
 	private Type preType;
 
@@ -109,4 +109,10 @@ public class TypedefDefinition implements Definition {
 		newInstance.setPreType(preType.makeClone());
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + toString() + ";");
+    }
 }

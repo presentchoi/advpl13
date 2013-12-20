@@ -15,7 +15,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DeclarationToTOneParamVisitor;
 
 
-public class FunctionDeclaration implements Declaration {
+public class FunctionDeclaration extends Declaration {
 	private Type returnType;
 	private String functionName;
 	private Vector<VariableDeclaration> parameters = new Vector<VariableDeclaration>();
@@ -181,4 +181,10 @@ public class FunctionDeclaration implements Declaration {
 		// TODO Auto-generated method stub
 		visitor.visit(this);
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + toString() + ";");
+    }
 }

@@ -14,7 +14,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class InstrumentStatement implements NonconditionStatement {
+public class InstrumentStatement extends NonconditionStatement {
 	private String statement;
 
 	public InstrumentStatement(String statement) {
@@ -110,4 +110,10 @@ public class InstrumentStatement implements NonconditionStatement {
 		newInstance.setStatement(statement);
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + getStatement());
+    }
 }

@@ -15,7 +15,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
 
-public class FunctionDefinition implements Definition {
+public class FunctionDefinition extends Definition {
 	private FunctionDeclaration functionSignature = new FunctionDeclaration();
 	private Block block = new Block();
 	private static final FunctionDefinition nullInstance = new FunctionDefinition();
@@ -137,4 +137,12 @@ public class FunctionDefinition implements Definition {
 		// TODO Auto-generated method stub
 		return visitor.visit(this);
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.print(getLineNum());
+        printSignature(out, prefix);
+        block.printWithLineNum(out, prefix);
+    }
 }

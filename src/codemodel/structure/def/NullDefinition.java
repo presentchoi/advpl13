@@ -13,7 +13,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
 
-public class NullDefinition implements Definition {
+public class NullDefinition extends Definition {
 	private static final NullDefinition instance = new NullDefinition();
 
 	public static final NullDefinition getInstance() {
@@ -85,5 +85,11 @@ public class NullDefinition implements Definition {
 		// TODO Auto-generated method stub
 
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

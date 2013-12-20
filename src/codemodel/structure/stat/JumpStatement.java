@@ -16,7 +16,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class JumpStatement implements NonconditionStatement {
+public class JumpStatement extends NonconditionStatement {
 	private Vector<String> jumpLiteral = new Vector<String>();
 	private Expression jumpExpression = NullExpression.getInstance();
 
@@ -128,5 +128,12 @@ public class JumpStatement implements NonconditionStatement {
 		newInstance.setJumpLiteral(new Vector<String>(jumpLiteral));
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.print(getLineNum());
+        print(out, prefix);
+    }
 
 }

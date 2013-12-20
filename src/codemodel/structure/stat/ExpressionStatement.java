@@ -15,7 +15,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class ExpressionStatement implements NonconditionStatement {
+public class ExpressionStatement extends NonconditionStatement {
 
 	private Expression expression = NullExpression.getInstance();
 
@@ -104,4 +104,10 @@ public class ExpressionStatement implements NonconditionStatement {
 		newInstance.setExpression(expression.makeClone());
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + expression.toString() + ";");
+    }
 }

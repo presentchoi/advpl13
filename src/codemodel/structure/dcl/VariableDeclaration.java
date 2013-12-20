@@ -14,7 +14,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DeclarationToTOneParamVisitor;
 
 
-public class VariableDeclaration implements Declaration {
+public class VariableDeclaration extends Declaration {
 	private String name = "";
 	private Type type;
 	private Array array;
@@ -212,4 +212,10 @@ public class VariableDeclaration implements Declaration {
 		newInstance.setType(type.makeClone());
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + toString() + ";");        
+    }
 }

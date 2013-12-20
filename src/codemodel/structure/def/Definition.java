@@ -12,27 +12,38 @@ import codemodel.transfer.tot.DefinitionToTVisitor;
 import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
+public abstract class Definition {
+    private int lineNum;
 
-public interface Definition {
-	public DefinitionType getDefinitionType();
+    public abstract DefinitionType getDefinitionType();
 
-	public void print(PrintStream out, String prefix);
+    public abstract void print(PrintStream out, String prefix);
 
-	public <T> T accept(CodeModelToTVisitor<T> visitor);
+    public abstract void printWithLineNum(PrintStream out, String prefix);
 
-	public <T> T accept(DefinitionToTVisitor<T> visitor);
+    public abstract <T> T accept(CodeModelToTVisitor<T> visitor);
 
-	public void accept(CodeModelNoParamVisitor visitor);
+    public abstract <T> T accept(DefinitionToTVisitor<T> visitor);
 
-	public void accept(DefinitionNoParamVisitor visitor);
+    public abstract void accept(CodeModelNoParamVisitor visitor);
 
-	public <T> void accept(CodeModelOneParamVisitor<T> visitor, T data);
+    public abstract void accept(DefinitionNoParamVisitor visitor);
 
-	public <T> void accept(DefinitionOneParamVisitor<T> visitor, T data);
+    public abstract <T> void accept(CodeModelOneParamVisitor<T> visitor, T data);
 
-	public <T, T1> T accept(CodeModelToTOneParamVisitor<T, T1> visitor, T1 data);
+    public abstract <T> void accept(DefinitionOneParamVisitor<T> visitor, T data);
 
-	public <T, T1> T accept(DefinitionToTOneParamVisitor<T, T1> visitor, T1 data);
+    public abstract <T, T1> T accept(CodeModelToTOneParamVisitor<T, T1> visitor, T1 data);
 
-	public Definition makeClone();
+    public abstract <T, T1> T accept(DefinitionToTOneParamVisitor<T, T1> visitor, T1 data);
+
+    public abstract Definition makeClone();
+
+    public int getLineNum() {
+        return lineNum;
+    }
+
+    public void setLineNum(int lineNum) {
+        this.lineNum = lineNum;
+    }
 }

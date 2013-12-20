@@ -39,6 +39,8 @@ public interface CodeModel extends InitDeclaratable {
 
 	public void print(PrintStream out, String prefix);
 
+    public void printWithLineNum(PrintStream out, String prefix);
+
 	public void addAll(CSource code);
 
 	public void setInitStatements(List<Statement> initStatements);

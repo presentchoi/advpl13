@@ -17,7 +17,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
 
-public class StructDefinition implements Definition {
+public class StructDefinition extends Definition {
 	private Vector<VariableDeclaration> structVariable = new Vector<VariableDeclaration>();
 	private String name = "";
 	private VariableScope scope;
@@ -144,4 +144,10 @@ public class StructDefinition implements Definition {
 		}
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + toString());
+    }
 }

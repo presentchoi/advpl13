@@ -15,71 +15,72 @@ import codemodel.parser.transfer.ParserTransferVisitorRepository;
 import codemodel.structure.CSource;
 import codemodel.structure.dcl.Declaration;
 
-
 public class CodeModelGenerator {
-	public static CSource getCodeModelFromFile(String fileName) {
-		CSource code = new CSource();
+    public static CSource getCodeModelFromFile(String fileName) {
+        CSource code = new CSource();
 
-		CParser cp = CParser.runParserFromFile(fileName);
-		Node rootNode = cp.getJjtree().rootNode();
+        CParser cp = CParser.runParserFromFile(fileName);
+        Node rootNode = cp.getJjtree().rootNode();
 
-		setPreprocessCCode(code, fileName);
-		setCSource(code, rootNode);
+        setPreprocessCCode(code, fileName);
+        setCSource(code, rootNode);
 
-		runAdditionalTransfer(code);
-		return code;
-	}
+        runAdditionalTransfer(code);
+        return code;
+    }
 
-	private static void runAdditionalTransfer(CSource code) {
-		CodeModelVisitorRepository.getConditionStatementTransferVisitor()
-				.visit(code);
-		CodeModelVisitorRepository.getSecondPathSymbolicAnalysisVisitor()
-				.visit(code, new Stack<List<Declaration>>());
-	}
+    private static void runAdditionalTransfer(CSource code) {
+        CodeModelVisitorRepository.getConditionStatementTransferVisitor()
+                .visit(code);
+        CodeModelVisitorRepository.getSecondPathSymbolicAnalysisVisitor()
+                .visit(code, new Stack<List<Declaration>>());
+        CodeModelVisitorRepository.getLineNumberAnalysisVisitor().visit(
+                code);
+    }
 
-	public static CSource getCodeModelFromString(String str) {
-		CSource code = new CSource();
+    public static CSource getCodeModelFromString(String str) {
+        CSource code = new CSource();
 
-		CParser cp = CParser.runParserFromString(str);
-		Node rootNode = cp.getJjtree().rootNode();
-		rootNode.dump("");
-		setCSource(code, rootNode);
+        CParser cp = CParser.runParserFromString(str);
+        Node rootNode = cp.getJjtree().rootNode();
+        rootNode.dump("");
+        setCSource(code, rootNode);
 
-		runAdditionalTransfer(code);
-		return code;
-	}
+        runAdditionalTransfer(code);
+        return code;
+    }
 
-	private static void setPreprocessCCode(CSource code, String fileName) {
-		// TODO Auto-generated method stub
-		FileInputStream file = null;
+    private static void setPreprocessCCode(CSource code, String fileName) {
+        // TODO Auto-generated method stub
+        FileInputStream file = null;
 
-		try {
-			file = new FileInputStream(fileName);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            file = new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		InputStreamReader is = new InputStreamReader(file);
-		BufferedReader br = new BufferedReader(is);
-		String line = "";
-		try {
-			while ((line = br.readLine()) != null) {
-				// System.err.println(line);
-				if (line.length() > 0) {
-					if (line.charAt(0) == '#') {
-						code.getPreprocess().add(line);
-					}
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        InputStreamReader is = new InputStreamReader(file);
+        BufferedReader br = new BufferedReader(is);
+        String line = "";
+        try {
+            while ((line = br.readLine()) != null) {
+                // System.err.println(line);
+                if (line.length() > 0) {
+                    if (line.charAt(0) == '#') {
+                        code.getPreprocess().add(line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	private static void setCSource(CSource code, Node node) {
-		ParserTransferVisitorRepository.getCSourceVisitor().visit(
-				(ASTTranslationUnit) node, code);
-	}
+    private static void setCSource(CSource code, Node node) {
+        ParserTransferVisitorRepository.getCSourceVisitor().visit(
+                (ASTTranslationUnit) node, code);
+    }
 }

@@ -150,4 +150,42 @@ public class IfStatement extends ConditionStatement {
 		newData.setIfElse(this.ifElse);
 		return newData;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        StringBuffer form = new StringBuffer();
+        form.append(getLineNum());
+        form.append("if (");
+        form.append(getConditionExpression().toString());
+        form.append(")");
+        out.println(prefix + form.toString());
+        if (getConditionBlock() != null) {
+            getConditionBlock().printWithLineNum(out, prefix);
+        }
+
+        if (ifElse != null) {
+            ifElse.ifElsePrintWithLineNum(out, prefix);
+        }
+    }
+
+    public void ifElsePrintWithLineNum(PrintStream out, String prefix) {
+        StringBuffer form = new StringBuffer();
+        form.append(getLineNum());
+        if (isIfElseStatement()) {
+            form.append("else if (");
+            form.append(getConditionExpression().toString());
+            form.append(")");
+        } else {
+            form.append("else");
+        }
+        out.println(prefix + form.toString());
+        if (getConditionBlock() != null) {
+            getConditionBlock().printWithLineNum(out, prefix);
+        }
+
+        if (ifElse != null) {
+            ifElse.ifElsePrintWithLineNum(out, prefix);
+        }
+    }
 }

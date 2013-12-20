@@ -126,4 +126,20 @@ public class ForStatement extends ConditionStatement {
 		newInstance.setIter(iter.makeClone());
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        StringBuffer form = new StringBuffer();
+        form.append(getLineNum());
+        form.append("for (");
+        form.append(init.toString());
+        form.append("; ");
+        form.append(getConditionExpression().toString());
+        form.append("; ");
+        form.append(iter.toString());
+        form.append(")");
+        out.println(prefix + form.toString());
+        getConditionBlock().printWithLineNum(out, prefix);
+    }
 }

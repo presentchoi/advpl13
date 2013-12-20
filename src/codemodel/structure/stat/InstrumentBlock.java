@@ -15,7 +15,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class InstrumentBlock implements NonconditionStatement {
+public class InstrumentBlock extends NonconditionStatement {
 	private Vector<InstrumentStatement> statements;
 	private int nodeNum;
 
@@ -121,4 +121,12 @@ public class InstrumentBlock implements NonconditionStatement {
 		newInstance.setStatements(new Vector<InstrumentStatement>(statements));
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        for (InstrumentStatement s : statements) {
+            s.printWithLineNum(out, prefix);
+        }
+    }
 }

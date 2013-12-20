@@ -3,7 +3,7 @@ package codemodel.structure.stat;
 import codemodel.structure.exp.Expression;
 import codemodel.structure.exp.NullExpression;
 
-public abstract class ConditionStatement implements Statement {
+public abstract class ConditionStatement extends Statement {
 	private Block conditionBlock;
 	private Expression conditionExpression = NullExpression.getInstance();
 

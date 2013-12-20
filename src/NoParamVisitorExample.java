@@ -30,6 +30,7 @@ import codemodel.structure.stat.InstrumentBlock;
 import codemodel.structure.stat.InstrumentStatement;
 import codemodel.structure.stat.JumpStatement;
 import codemodel.structure.stat.LabeledStatement;
+import codemodel.structure.stat.Statement;
 import codemodel.structure.stat.WhileStatement;
 import codemodel.transfer.noparam.CodeModelNoParamVisitor;
 
@@ -154,7 +155,9 @@ public class NoParamVisitorExample implements CodeModelNoParamVisitor {
 	@Override
 	public void visit(Block block) {
 		// TODO Auto-generated method stub
-		
+		for (Statement s : block.getStatements()) {
+			s.accept(this);
+		}
 	}
 
 	@Override

@@ -159,4 +159,10 @@ public class NullCodeModel implements CodeModel {
 
 	}
 
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

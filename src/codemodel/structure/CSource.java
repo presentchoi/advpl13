@@ -219,4 +219,20 @@ public class CSource implements CodeModel {
 	public List<FunctionDefinition> getFunctionDefinitions() {
 		return functionDefinitions;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        for (String p : preprocess) {
+            out.println(p);
+        }
+        for (Declaration nSt : declarations) {
+            nSt.printWithLineNum(out, prefix);
+        }
+        for (Statement initSt : initStatements) {
+            initSt.printWithLineNum(out, prefix);
+        }
+        for (Definition d : definitions) {
+            d.printWithLineNum(out, prefix);
+        }
+    }
 }

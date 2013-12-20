@@ -21,7 +21,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class Block implements NonconditionStatement, InitDeclaratable {
+public class Block extends NonconditionStatement implements InitDeclaratable {
 	private List<Statement> blockStatements = new ArrayList<Statement>();
 	private List<Declaration> localDeclarations = new ArrayList<Declaration>();
 	private List<Definition> localDefinitions = new ArrayList<Definition>();
@@ -208,4 +208,17 @@ public class Block implements NonconditionStatement, InitDeclaratable {
 		// TODO Auto-generated method stub
 		visitor.visit(this, data);
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        out.println(getLineNum() + prefix + "{");
+        for (Declaration var : localDeclarations) {
+            var.printWithLineNum(out, "\t" + prefix);
+        }
+        for (Statement stat : blockStatements) {
+            stat.printWithLineNum(out, "\t" + prefix);
+        }
+        out.println(prefix + "}");
+    }
 }

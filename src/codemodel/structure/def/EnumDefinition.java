@@ -14,7 +14,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.DefinitionToTOneParamVisitor;
 
 
-public class EnumDefinition implements Definition {
+public class EnumDefinition extends Definition {
 	private VariableScope scope;
 
 	@Override
@@ -92,4 +92,10 @@ public class EnumDefinition implements Definition {
 		// TODO Auto-generated method stub
 		return visitor.visit(this, data);
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        
+    }
 }

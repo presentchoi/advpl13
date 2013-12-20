@@ -13,7 +13,7 @@ import codemodel.transfer.totoneparam.CodeModelToTOneParamVisitor;
 import codemodel.transfer.totoneparam.StatementToTOneParamVisitor;
 
 
-public class LabeledStatement implements NonconditionStatement {
+public class LabeledStatement extends NonconditionStatement {
 	private String labelString;
 	private Statement labeledStatement;
 
@@ -118,5 +118,17 @@ public class LabeledStatement implements NonconditionStatement {
 		newInstance.setLabelString(labelString);
 		return newInstance;
 	}
+
+    @Override
+    public void printWithLineNum(PrintStream out, String prefix) {
+        // TODO Auto-generated method stub
+        StringBuffer form = new StringBuffer();
+        form.append(getLineNum());
+        form.append(prefix);
+        form.append(labelString);
+        form.append(" :");
+        out.println(form.toString());
+        labeledStatement.printWithLineNum(out, "\t" + prefix);
+    }
 
 }
