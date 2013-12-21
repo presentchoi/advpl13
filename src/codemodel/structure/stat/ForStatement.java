@@ -130,8 +130,8 @@ public class ForStatement extends ConditionStatement {
     @Override
     public void printWithLineNum(PrintStream out, String prefix) {
         // TODO Auto-generated method stub
+        out.print(getLineNum());
         StringBuffer form = new StringBuffer();
-        form.append(getLineNum());
         form.append("for (");
         form.append(init.toString());
         form.append("; ");

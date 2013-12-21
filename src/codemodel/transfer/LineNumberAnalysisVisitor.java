@@ -49,7 +49,6 @@ public class LineNumberAnalysisVisitor implements CodeModelNoParamVisitor {
         for (Declaration d : sourceCode.getDeclarations()) {
             d.accept(this);
         }
-
         for (Statement s : sourceCode.getStatements()) {
             s.accept(this);
         }
@@ -60,137 +59,66 @@ public class LineNumberAnalysisVisitor implements CodeModelNoParamVisitor {
 
     public void visit(FunctionDefinition functionDefinition) {
         // TODO Auto-generated method stub
+    	functionDefinition.setLineNum(lineNum++);
         functionDefinition.getBlock().accept(this);
     }
 
     public void visit(Block block) {
         // TODO Auto-generated method stub
-        for (int i = 0; i < block.getStatements().size(); i++) {
-            Statement s = block.getStatements().get(i);
-            if (s.getType() == StatementType.FOR) {
-                ForStatement f = (ForStatement) s;
-                WhileStatement w = new WhileStatement();
-                w.setConditionBlock(f.getConditionBlock());
-                w.setConditionExpression(f.getConditionExpression());
+    	block.setLineNum(lineNum++);
 
-                ExpressionStatement iterExp = new ExpressionStatement();
-                iterExp.setExpression(f.getIter());
-
-                w.getConditionBlock().addStatement(iterExp);
-
-                block.getStatements().remove(i);
-
-                ExpressionStatement initExp = new ExpressionStatement();
-                initExp.setExpression(f.getInit());
-
-                block.getStatements().add(i, initExp);
-                block.getStatements().add(i + 1, w);
-
-                replaceWhileToIf(w, block, i + 1);
-            } else if (s.getType() == StatementType.WHILE) {
-                s.accept(this);
-                replaceWhileToIf((WhileStatement) s, block, i);
-            } else {
-                s.accept(this);
-            }
+        for (Declaration d : block.getDeclarations()) {
+            d.accept(this);
         }
-    }
-
-    private void replaceWhileToIf(WhileStatement w, Block block, int index) {
-        // TODO Auto-generated method stub
-        int maxDepth = Configuration.getLimitLoopDepthNum();
-        int whileIndex = index;
-        Block targetBlock = block;
-        int[] replaceStrategy = { 0, 1, 2, maxDepth };
-
-        targetBlock.getStatements().remove(whileIndex);
-        for (int i = 0; i < maxDepth - 1; i++) {
-            if (contains(replaceStrategy, i)) {
-                targetBlock = addIfStatement(w, whileIndex, targetBlock, i);
-            } else {
-                addStatementsToBlock(targetBlock, w.getConditionBlock()
-                        .getStatements());
-            }
+        for (Statement s : block.getStatements()) {
+            s.accept(this);
         }
-        addIfStatement(w, whileIndex, targetBlock, maxDepth);
-    }
-
-    private Block addIfStatement(WhileStatement w, int whileIndex,
-            Block targetBlock, int i) {
-        IfStatement ifStatement = new IfStatement();
-        ifStatement.setConditionExpression(w.getConditionExpression()
-                .makeClone());
-        Block newInstance = new Block();
-        addStatementsToBlock(newInstance, w.getConditionBlock().getStatements());
-        ifStatement.setConditionBlock(newInstance);
-        IfStatement emptyElse = new IfStatement();
-        emptyElse.setConditionBlock(new Block());
-        ifStatement.setIfElse(emptyElse);
-        if (i == 0) {
-            targetBlock.getStatements().add(whileIndex, ifStatement);
-        } else {
-            targetBlock.addStatement(ifStatement);
+        for (Definition f : block.getDefinitions()) {
+            f.accept(this);
         }
-        targetBlock = ifStatement.getConditionBlock();
-        return targetBlock;
-    }
-
-    private void addStatementsToBlock(Block block, List<Statement> statements) {
-        // TODO Auto-generated method stub
-        for (Statement s : statements) {
-            block.addStatement(s.makeClone());
-        }
-    }
-
-    private boolean contains(int[] valueSet, int value) {
-        // TODO Auto-generated method stub
-        for (int i = 0; i < valueSet.length; i++) {
-            if (valueSet[i] == value) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void visit(ExpressionStatement expressionStatement) {
         // TODO Auto-generated method stub
+    	expressionStatement.setLineNum(lineNum++);
     }
 
     public void visit(ForStatement forStatement) {
         // TODO Auto-generated method stub
+    	forStatement.setLineNum(lineNum++);
+    	forStatement.getConditionBlock().accept(this);
     }
 
     public void visit(IfStatement ifStatement) {
         // TODO Auto-generated method stub
+    	ifStatement.setLineNum(lineNum++);
         ifStatement.getConditionBlock().accept(this);
         if (ifStatement.getIfElse() != null) {
             ifStatement.getIfElse().accept(this);
-        } else {
-            if (ifStatement.getConditionExpression() != null
-                    && !(ifStatement.getConditionExpression() instanceof NullExpression)) {
-                IfStatement blankElseIf = new IfStatement();
-                blankElseIf.setConditionBlock(new Block());
-                ifStatement.setIfElse(blankElseIf);
-            }
         }
     }
 
     public void visit(JumpStatement jumpStatement) {
         // TODO Auto-generated method stub
+    	jumpStatement.setLineNum(lineNum++);
     }
 
     public void visit(LabeledStatement labeledStatement) {
         // TODO Auto-generated method stub
+    	labeledStatement.setLineNum(lineNum++);
         labeledStatement.getLabeledStatement().accept(this);
     }
 
     public void visit(WhileStatement whileStatement) {
         // TODO Auto-generated method stub
+    	whileStatement.setLineNum(lineNum++);
         whileStatement.getConditionBlock().accept(this);
     }
 
     public void visit(DoWhileStatement doWhileStatement) {
         // TODO Auto-generated method stub
+    	doWhileStatement.getConditionBlock().accept(this);
+    	doWhileStatement.setLineNum(lineNum++);
 
     }
 

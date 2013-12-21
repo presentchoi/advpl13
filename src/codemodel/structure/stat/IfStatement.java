@@ -154,8 +154,8 @@ public class IfStatement extends ConditionStatement {
     @Override
     public void printWithLineNum(PrintStream out, String prefix) {
         // TODO Auto-generated method stub
+    	out.print(getLineNum());
         StringBuffer form = new StringBuffer();
-        form.append(getLineNum());
         form.append("if (");
         form.append(getConditionExpression().toString());
         form.append(")");
@@ -171,7 +171,7 @@ public class IfStatement extends ConditionStatement {
 
     public void ifElsePrintWithLineNum(PrintStream out, String prefix) {
         StringBuffer form = new StringBuffer();
-        form.append(getLineNum());
+        out.print(getLineNum());
         if (isIfElseStatement()) {
             form.append("else if (");
             form.append(getConditionExpression().toString());
